@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Lecturer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container" sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>Edit Lecturer</h2>
+    <form method="post" th:object="${lecturer}" th:action="@{/lecturers/add}">
+    <div class="form-group">
+            <label for="lecturerID">Lecturer ID:</label>
+            <input type="text" class="form-control" id="lecturerID" th:field="*{lecturerID}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="lecturerName">Lecturer Name:</label>
+            <input type="text" class="form-control" id="lecturerName" th:field="*{lecturerName}">
+        </div>
+        <div class="form-group">
+            <label for="faculty">Faculty:</label>
+            <select class="form-control" id="faculty" name="facultyId">
+                <option th:each="faculty : ${faculties}" th:value="${faculty.facultyID}" th:text="${faculty.facultyName}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Lecturer</button>
+    </form>
+</div>
+</body>
+</html>

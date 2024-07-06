@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<head>
+    <meta charset="UTF-8">
+    <title>Department List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container" sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>Department List</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Floor</th>
+            <th>List of Classes</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="department : ${departments}">
+            <td th:text="${department.departmentID}"></td>
+            <td th:text="${department.departmentName}"></td>
+            <td th:text="${department.floor}"></td>
+            <td th:text="${department.listOfClass}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')" >
+                <a  class="btn btn-primary btn-sm" th:href="@{/departments/edit/{id}(id=${department.departmentID})}">Edit</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/departments/delete/{id}(id=${department.departmentID})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a class="btn btn-success" href="/departments/add">Add New Department</a>
+</div>
+</body>
+</html>

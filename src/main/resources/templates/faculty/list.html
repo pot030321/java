@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Faculties</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container" sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>List of Faculties</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Faculty ID</th>
+            <th>Faculty Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="faculty : ${faculties}">
+            <td th:text="${faculty.facultyID}"></td>
+            <td th:text="${faculty.facultyName}"></td>
+            <td>
+                <a th:href="@{/faculties/edit/{id}(id=${faculty.facultyID})}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{/faculties/delete/{id}(id=${faculty.facultyID})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/faculties/add" class="btn btn-success">Add Faculty</a>
+</div>
+</body>
+</html>

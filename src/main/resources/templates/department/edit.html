@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Department</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container" sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>Edit Department</h2>
+    <form method="post" th:object="${department}" th:action="@{/departments/add}">
+        <input type="hidden" th:field="*{departmentID}" />
+        <div class="form-group">
+            <label for="departmentName">Department Name:</label>
+            <input type="text" class="form-control" id="departmentName" th:field="*{departmentName}">
+        </div>
+        <div class="form-group">
+            <label for="floor">Floor:</label>
+            <input type="text" class="form-control" id="floor" th:field="*{floor}">
+        </div>
+        <div class="form-group">
+            <label for="listOfClass">List of Classes:</label>
+            <input type="text" class="form-control" id="listOfClass" th:field="*{listOfClass}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Department</button>
+    </form>
+</div>
+</body>
+</html>

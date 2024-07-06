@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container"  sec:authorize="hasAnyAuthority('ADMIN')" >
+    <h2>Student List</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Date of Birth</th>
+            <th>Phone Number</th>
+            <th>Gmail</th>
+            <th>Faculty</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.studentID}"></td>
+            <td th:text="${student.studentName}"></td>
+            <td th:text="${#temporals.format(student.dateOfBirth, 'yyyy-MM-dd')}"></td>
+            <td th:text="${student.phoneNumber}"></td>
+            <td th:text="${student.gmail}"></td>
+            <td th:text="${student.faculty != null ? student.faculty.facultyName : 'Unknown'}">Faculty</td>
+            <td>
+                <a th:href="@{/students/edit/{id}(id=${student.studentID})}" class="btn btn-sm btn-primary">Edit</a>
+                <a th:href="@{/students/delete/{id}(id=${student.studentID})}" class="btn btn-sm btn-danger">Delete</a>
+                <br>
+                <a th:href="@{/students/excel}" class="btn btn-sm btn-danger">Export Excel</a>
+
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/students/add" class="btn btn-primary">Add Student</a>
+</div>
+</body>
+</html>

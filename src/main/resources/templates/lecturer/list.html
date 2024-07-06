@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Lecturers</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container" sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>List of Lecturers</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Lecturer ID</th>
+            <th>Lecturer Name</th>
+            <th>Faculty</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lecturer : ${lecturers}">
+            <td th:text="${lecturer.lecturerID}"></td>
+            <td th:text="${lecturer.lecturerName}"></td>
+            <td th:text="${lecturer.faculty.facultyName}"></td>
+            <td>
+                <a th:href="@{/lecturers/edit/{id}(id=${lecturer.lecturerID})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/lecturers/delete/{id}(id=${lecturer.lecturerID})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/lecturers/add}" class="btn btn-success">Add New Lecturer</a>
+</div>
+</body>
+</html>

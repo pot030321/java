@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Subject</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container" sec:authorize="hasAnyAuthority('ADMIN')" >
+    <h2>Edit Subject</h2>
+    <form method="post" th:object="${subject}" th:action="@{/subjects/add}">
+        <div class="form-group">
+            <label for="subJectID">Subject ID:</label>
+            <input type="text" class="form-control" id="subJectID" th:field="*{subJectID}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="subJectName">Subject Name:</label>
+            <input type="text" class="form-control" id="subJectName" th:field="*{subJectName}">
+        </div>
+        <div class="form-group">
+            <label for="numberOfCredits">Number of Credits:</label>
+            <input type="number" class="form-control" id="numberOfCredits" th:field="*{numberOfCredits}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Subject</button>
+    </form>
+</div>
+</body>
+</html>
